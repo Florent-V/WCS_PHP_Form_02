@@ -13,20 +13,51 @@
         <p id="description">Votre message a bien été envoyé !</p>
     </header>
     <main>
-        <h1>Résumé de votre demande :</h1>
-        <p>
-            Merci <?php echo $_POST['name'] . ' ' . $_POST['last-name']?> de nous contacter à propos de : <?php echo $_POST['dropdown'] ?>
-        </p>
-        <p>
-            Un de nos conseiller vous contactera soit à l'adresse <?php echo $_POST['email'] ?> ou par téléphone au 
-            <?php echo $_POST['number'] ?> dans les plus brefs délais pour traiter votre demande :
+        <?php
 
-        </p>
+            $errors = [];
 
-        <p>
-            Message : <br>
-            <?php echo $_POST['message'] ?>
-        </p>
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // nettoyage et validation des données soumises via le formulaire 
+                if(!isset($_POST['name']) || trim($_POST['name']) === '') 
+                    $errors[] = "Le prénom est obligatoire";
+                if(!isset($_POST['last-name']) || trim($_POST['last-name']) === '') 
+                    $errors[] = "Le nom est obligatoire";
+                if(!isset($_POST['number']) || trim($_POST['number']) === '') 
+                    $errors[] = "Le numéro de téléphone est obligatoire";
+                if(!isset($_POST['email']) || trim($_POST['email']) === '' || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+                    $errors[] = "Une adresse mail valide est obligatoire";
+                if(!isset($_POST['dropdown']) || trim($_POST['dropdown']) === '') 
+                    $errors[] = "Le sujet de votre message est obligatoire";
+                if(!isset($_POST['message']) || trim($_POST['message']) === '') 
+                    $errors[] = "Votre message ne doit pas être vide";
+
+                if(empty($errors)) {
+                    // traitement du formulaire
+                    // puis redirection
+                    include '_valid.php';
+                } else {
+                    include '_invalid.php';
+                }
+            }
+        ?>
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
     </main>

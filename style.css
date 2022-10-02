@@ -41,7 +41,7 @@ main h1 {
 
 /* FORM */
 
-form, main {
+main {
   background-color: rgba(27, 27, 50, 0.8);
   padding: 35px;
   width: 700px;
@@ -101,3 +101,13 @@ label {
   border-radius: 5px;
 }
 
+.danger {
+  background-color: #C70039;
+  border-radius: 1rem;
+}
+
+a {
+  text-align: center;
+  color: white;
+  display: block;
+}
