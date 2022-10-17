@@ -18,18 +18,22 @@
             $errors = [];
 
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                var_dump($_POST);
+                $form = array_map('trim', $_POST);
+                $form = array_map('htmlentities', $form);
+                var_dump($form);
                 // nettoyage et validation des données soumises via le formulaire 
-                if(!isset($_POST['name']) || trim($_POST['name']) === '') 
+                if(!isset($form['name']) || $form['name'] === '') 
                     $errors[] = "Le prénom est obligatoire";
-                if(!isset($_POST['last-name']) || trim($_POST['last-name']) === '') 
+                if(!isset($form['last-name']) || $form['last-name'] === '') 
                     $errors[] = "Le nom est obligatoire";
-                if(!isset($_POST['number']) || trim($_POST['number']) === '') 
+                if(!isset($form['number']) || $form['number'] === '') 
                     $errors[] = "Le numéro de téléphone est obligatoire";
-                if(!isset($_POST['email']) || trim($_POST['email']) === '' || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
+                if(!isset($form['email']) || $form['email'] === '' || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
                     $errors[] = "Une adresse mail valide est obligatoire";
-                if(!isset($_POST['dropdown']) || trim($_POST['dropdown']) === '') 
+                if(!isset($form['dropdown']) || $form['dropdown'] === '') 
                     $errors[] = "Le sujet de votre message est obligatoire";
-                if(!isset($_POST['message']) || trim($_POST['message']) === '') 
+                if(!isset($form['message']) || $form['message'] === '') 
                     $errors[] = "Votre message ne doit pas être vide";
 
                 if(empty($errors)) {
